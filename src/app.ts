@@ -22,11 +22,17 @@ const application = async () => {
         session({
             secret: sessionSecret,
             resave: false,
-            saveUninitialized: true,
+            saveUninitialized: false,
             unset: 'destroy',
-            name: '_session',
             genid: (req) => {
                 return randomString()
+            },
+            cookie: {
+                // set to true in production
+                secure: false,
+                // set to true in production.
+                httpOnly: false,
+                maxAge: 24 * 60 * 60 * 1000,
             },
         }),
     )
