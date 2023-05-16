@@ -1,6 +1,5 @@
 type UserType = {
     address: string
-    chainId: string
     signature: string
 }
 
