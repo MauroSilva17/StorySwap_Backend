@@ -1,0 +1,8 @@
+title Wallet Connect
+
+note left of Frontend
+Popup Connect Wallet
+end note
+Frontend-->Frontend: Select Wallet To Connect
+Frontend-->Frontend: Push Connect Button
+end

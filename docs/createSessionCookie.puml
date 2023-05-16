@@ -1,0 +1,24 @@
+title Create Session Cookie
+
+Frontend->Backend: GET /nonce
+Backend -> Frontend: Response 
+note left of Backend
+    {
+        nonce:1234
+    }
+end note
+Frontend --> Frontend: Build and Sign Message
+Frontend -> Backend: POST /sign 
+note left of Backend
+    {
+        signature:1234
+    }
+end note
+
+
+Backend --> Backend: Validate Signature
+opt Valid Signature
+    Backend -> Frontend: Send Session Cookie
+else No Permission
+    Backend -> Frontend: Send authentication required 401
+end

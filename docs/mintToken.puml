@@ -1,0 +1,13 @@
+title Mint Token
+
+note left of Frontend
+Push Mint Button
+end note
+Frontend->Blockchain: Call mint()
+opt Wallet is Connected
+    Frontend --> Frontend: Sign Transaction
+    Frontend -> Blockchain: Send Transaction
+    Blockchain->Frontend: Callback
+else Wallet not connected
+    Frontend --> Frontend: Wallet Connect
+end

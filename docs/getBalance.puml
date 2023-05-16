@@ -1,0 +1,8 @@
+title Get Balance
+
+Frontend->Blockchain: Call GetBalance()
+opt Wallet is Connected
+    Blockchain -> Frontend: {balance:0.01}
+else Wallet not connected
+    Frontend --> Frontend: Wallet Connect
+end

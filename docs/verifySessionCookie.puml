@@ -1,0 +1,13 @@
+title verify session cookie 
+
+Frontend->Backend: GET /auth
+note left of Frontend
+Validate Session
+end note
+Backend-->Backend: Check cookie session
+
+opt Valid Session
+    Backend -> Frontend: Send success 200
+else No Permission
+    Backend -> Frontend: Send authentication required 401
+end
