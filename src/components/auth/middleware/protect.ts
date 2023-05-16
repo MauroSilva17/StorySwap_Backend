@@ -6,11 +6,8 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
     const session = req.session.user
 
     if (!session) {
-        return next(new Error('Not authorized'))
+        return next(res.status(401).send('Not authorized'))
     }
 
-    // next()
-
-    // Testing response
-    res.status(200).send('authorized')
+    next()
 }

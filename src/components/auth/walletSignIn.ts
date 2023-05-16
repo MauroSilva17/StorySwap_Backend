@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import { Request, Response, NextFunction } from 'express'
 import { ethers, verifyMessage } from 'ethers'
-import session from './../@types/express-session/index'
+import session from './../../../@types/express-session/index' // TODO check typescript config
 
 // API KEYS:
 const apiKey: string = process.env.ALCHEMY_API_KEY as string
@@ -15,28 +15,26 @@ const signer = new ethers.Wallet(privateKey, alchemyProvider)
 export const walletSignIn = async (req: Request, res: Response, next: NextFunction) => {
     try {
         // receiving user's data
-        const { address, chainId, signature, message } = req.body
+        const { signature, nonceCode } = req.body
 
+        const message = `***->> Private code :: ${nonceCode} :: Do you wish to sign ? :: ->>`
         // Verify signature with Message
-        const recoveredAddress = verifyMessage(message as string, signature)
-        const isValidSignature = recoveredAddress === address
+        const address = verifyMessage(message, signature)
 
         // Validate user signature
-        if (!isValidSignature) {
+        if (!address) {
             throw new Error('Invalid signature')
         }
 
-        // TODO:  --## Check session types ##--
-        // Store user data in the session
-
+        // Store data in the session
         req.session.user = {
             address: address,
-            chainId: chainId,
             signature: signature,
         }
 
         res.status(200).send('Successfully authenticated')
     } catch (error) {
-        res.status(500).json({ error: 'Authentication failed' })
+        console.error(error)
+        res.status(401).json({ error: 'Authentication failed' })
     }
 }
