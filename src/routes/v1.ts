@@ -1,17 +1,12 @@
-import express from 'express'
-import { protect } from 'src/components/middleware/protect'
-import { walletSignIn } from 'src/components/walletSignIn'
+import express, { NextFunction, Request, Response } from 'express'
+import authRoutes from '@auth/routes'
 
-export const routesV1 = () => {
-    /**
-     * /v1
-     */
-    const router = express.Router({ mergeParams: true })
+const router = express.Router({ mergeParams: true })
 
-    router.route('/auth/signin').post(walletSignIn)
+/**
+ * /v1
+ */
 
-    // Contract calls protection route
-    router.route('/protect').post(protect)
-
-    return router
-}
+router.use('/auth', authRoutes)
+// Contract calls protection route
+export default router

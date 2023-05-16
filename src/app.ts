@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { routesV1 } from './routes/v1'
+import routesV1 from './routes/v1'
 import cookieParser from 'cookie-parser'
 import { randomString } from './utils/randomString'
 import session from 'express-session'
@@ -37,7 +37,7 @@ const application = async () => {
         }),
     )
 
-    app.use('/v1', routesV1())
+    app.use('/v1', routesV1)
 
     app.get('/test', (req, res) => {
         res.json({
