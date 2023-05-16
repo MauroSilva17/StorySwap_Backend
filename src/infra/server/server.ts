@@ -1,7 +1,8 @@
 import application from '../../app'
-import Environment from '../../config/environment'
+import dotenv from 'dotenv'
+dotenv.config()
 
-const PORT = Environment.express.port || 8000
+const PORT = process.env.SERVER_PORT as string
 
 const server = async () => {
     const app = await application()
